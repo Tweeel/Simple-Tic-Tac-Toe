@@ -6,8 +6,15 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         char[][] xo = new char[3][3];
+        for (int i=0;i<3;i++) {
+            for (int j=0;j<3;j++) {
+                xo[i][j]=' ';
+            }
+        }
         List<Integer> player1 = new ArrayList<>();
         List<Integer> player2 = new ArrayList<>();
+        String index11;
+        String index22;
         int index1=0;
         int index2=0;
         int test = 0;
@@ -16,40 +23,51 @@ public class Main {
         boolean result=true;
 
         while (result) {
-            test=0;
-            while (test == 0) {
-                index1 = scanner.nextInt();
-                index2 = scanner.nextInt();
-                if (index1 > 3 || index2 > 3) System.out.println("Coordinates should be from 1 to 3!");
-                else if (xo[index1 - 1][index2 - 1] == 'X' || xo[index1 - 1][index2 - 1] == 'O')
-                    System.out.println("This cell s occupied! Choose another one!");
-                else {
-                    xo[index1 - 1][index2 - 1] = 'X';
-                    test++;
+                test=0;
+                while (test == 0) {
+                    index11 = scanner.next();
+                    index22 = scanner.next();
+                    try {
+                        index1 = Integer.parseInt(index11);
+                        index2 = Integer.parseInt(index22);
+                        if (index1 > 3 || index2 > 3) System.out.println("Coordinates should be from 1 to 3!");
+                        else if (xo[index1 - 1][index2 - 1] == 'X' || xo[index1 - 1][index2 - 1] == 'O')
+                            System.out.println("This cell s occupied! Choose another one!");
+                        else {
+                            xo[index1 - 1][index2 - 1] = 'X';
+                            test++;
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("You should enter numbers!");
+                    }
                 }
-            }
-            afficher_mat(xo);
-            fill(index1,index2,player1);
-            result=check_winner(xo, player1, player2);
-            if(result==false) System.exit(0);
+                afficher_mat(xo);
+                fill(index1,index2,player1);
+                result=check_winner(xo, player1, player2);
+                if(result==false) System.exit(0);
 
             test = 0;
-            while (test == 0) {
-                index1 = scanner.nextInt();
-                index2 = scanner.nextInt();
-                if (index1 > 3 || index2 > 3) System.out.println("Coordinates should be from 1 to 3!");
-                else if (xo[index1 - 1][index2 - 1] == 'X' || xo[index1 - 1][index2 - 1] == 'O')
-                    System.out.println("This cell s occupied! Choose another one!");
-                else {
-                    xo[index1 - 1][index2 - 1] = 'O';
-                    test++;
+                while (test == 0) {
+                    index11 = scanner.next();
+                    index22 = scanner.next();
+                    try {
+                        index1 = Integer.parseInt(index11);
+                        index2 = Integer.parseInt(index22);
+                        if (index1 > 3 || index2 > 3) System.out.println("Coordinates should be from 1 to 3!");
+                        else if (xo[index1 - 1][index2 - 1] == 'X' || xo[index1 - 1][index2 - 1] == 'O')
+                            System.out.println("This cell s occupied! Choose another one!");
+                        else {
+                            xo[index1 - 1][index2 - 1] = 'O';
+                            test++;
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("You should enter numbers!");
+                    }
                 }
-            }
-            afficher_mat(xo);
-            fill(index1,index2,player2);
-            result=check_winner(xo, player1, player2);
-            if(result==false) System.exit(0);
-
+                afficher_mat(xo);
+                fill(index1,index2,player2);
+                result=check_winner(xo, player1, player2);
+                if(result==false) System.exit(0);
         }
 
     }
@@ -95,18 +113,18 @@ public class Main {
         }
 
         if (player1.size() - player2.size() > 1 || player2.size() - player1.size() > 1) {
-            System.out.println("Impossible");
+            System.out.print("Impossible");
             System.exit(0);
         } else if (conteur1 == 1) {
-            System.out.println("X wins");
+            System.out.print("X wins");
             return false;
         } else if (conteur2 == 1) {
-            System.out.println("O wins");
+            System.out.print("O wins");
             return false;
         } else if (player1.size() + player2.size() <9) {
             return true;
         } else if (conteur1 == 0 && conteur2 == 0) {
-            System.out.println("Draw");
+            System.out.print("Draw");
             return false;
         }
         return true;
